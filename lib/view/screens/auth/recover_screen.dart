@@ -1,12 +1,15 @@
 import 'package:abyansf_asfmanagment_app/utils/style/app_color.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/app_style.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/app_text_styles.dart';
+import 'package:abyansf_asfmanagment_app/view/screens/auth/auth_controller/email_verification_controller.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/auth/gmail_verification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RecoverScreen extends StatelessWidget {
-  const RecoverScreen({super.key});
+   RecoverScreen({super.key});
+
+  final controller=Get.find<EmailVerificationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,27 +36,36 @@ class RecoverScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: AppStyles.heightM),
-            TextFormField(decoration: InputDecoration(hintText: 'Email')),
+            TextFormField(
+              controller: controller.emailTEController,
+                decoration: InputDecoration(hintText: 'Email')),
 
             SizedBox(height: 20),
             // login button //
             Row(
               children: [
                 Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.to(() => GmailVerificationScreen());
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primaryColor,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                    ),
-                    child: Text(
-                      'Submit',
-                      style: AppTextStyle.bold18.copyWith(
-                        color: AppColors.white,
-                      ),
-                    ),
+                  child: GetBuilder<EmailVerificationController>(
+                    builder: (emailController) {
+                      if(emailController.emailInProgress){
+                        return Center(child: CircularProgressIndicator(),);
+                      }
+                      return ElevatedButton(
+                        onPressed: () {
+                      emailController.emailVerify();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primaryColor,
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                        ),
+                        child: Text(
+                          'Submit',
+                          style: AppTextStyle.bold18.copyWith(
+                            color: AppColors.white,
+                          ),
+                        ),
+                      );
+                    }
                   ),
                 ),
               ],

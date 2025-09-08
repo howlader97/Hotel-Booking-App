@@ -1,3 +1,4 @@
+import 'package:abyansf_asfmanagment_app/view/screens/auth/auth_controller/email_verification_controller.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/auth/auth_controller/login_controller.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/auth/auth_controller/otp_verification_controller.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/auth/auth_controller/sign_up_controller.dart';
@@ -25,5 +26,6 @@ class AppBindings extends Bindings {
     Get.put(SignUpController());
     Get.put(OtpVerificationController());
     Get.put(LoginController());
+    Get.put(EmailVerificationController());
   }
 }
